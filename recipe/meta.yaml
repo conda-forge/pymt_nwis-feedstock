@@ -1,5 +1,6 @@
+{% set python_min = '3.10' %}
 {% set name = "pymt_nwis" %}
-{% set version = "0.2" %}
+{% set version = "0.2.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +8,7 @@ package:
 
 source:
   url: https://github.com/gantian127/{{ name }}/archive/v{{ version }}.tar.gz
-  sha256: 3825ba6010541c54deda4a2ebdfd6aacb4ce700e5f935eded3f7545b680c3908
+  sha256: fcf4bfda9420607ccdd2a73edd8e094e3835d2646ba5e1af0fb3adadc93ac86a
 
 build:
   noarch: python
@@ -16,13 +17,17 @@ build:
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
+    - setuptools
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - bmi_nwis >=0.1
 
 test:
+  requires:
+    - python {{ python_min }}
+    - setuptools
   imports:
     - pymt_nwis
 
